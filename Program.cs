@@ -1,4 +1,5 @@
 ﻿using System;
+//using SerialPort
 using TwitchLib.Client;
 using TwitchLib.Client.Enums;
 using TwitchLib.Client.Events;
@@ -23,7 +24,6 @@ namespace TestConsole
         TwitchClient client;
         String accessToken;
         public string Move { get; set; }
-        public int dist { get; set; }
 
         public Bot()
         {
@@ -83,10 +83,8 @@ namespace TestConsole
         //      null if not a command, actual command if it is
         private string isCommand(string command)
         {
-            if (command[0] == '?')
-            {
+            if (command[0] == '!')
                 return command.Substring(1);
-            }
             return null;
         }
 
@@ -95,12 +93,33 @@ namespace TestConsole
         // desc: parses command and)
         // example inputs: "move:left, dist:2"
         // example output: "{"move": "left", "dist": 2}"
-        public string parseCommand()
+
+        public string parseCommand(string command)
+        {
+            string[] separatingStrings = { ":", "," };
+
+
+            string text = command;
+            System.Console.WriteLine($"Original text: '{text}'");
+
+            string[] words = text.Split(separatingStrings, System.StringSplitOptions.RemoveEmptyEntries);
+
+            string first = words[0];
+            string second = words[1];
+            string third = words[2];
+            string fourth = words[3];
+
+            string data = "{'" + first + "': '" + second + "', '" + third + ": " + fourth + "}";
+            System.Console.WriteLine(data);
+            return data;
+        }
 
         // function: pipe
         // arguments: json data as string, outputProcess
         // desc: passes the xml to a named pipe
         // retun: void
+
+        /*
         static void Main(string[] args)
         {
             var pipe = new System.IO.Pipes.NamedPipeServerStream("MyPipe", System.IO.Pipes.PipeDirection.InOut, 1);
@@ -108,6 +127,7 @@ namespace TestConsole
             pipe.WaitForConnection();
             Console.WriteLine("Client connected.");
         }
+        */
         //idk which is right
         /*    public static void pipeData(String jsonData, outputProcess)
         {
