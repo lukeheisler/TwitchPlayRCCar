@@ -8,7 +8,7 @@ using TwitchLib.Client.Models;
 using TwitchLib.Communication.Clients;
 using TwitchLib.Communication.Models;
 
-namespace TestConsole
+namespace TwitchProcesses
 {
     class Program
     {
